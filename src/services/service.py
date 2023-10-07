@@ -23,8 +23,10 @@ class DataService:
         df = pd.read_excel(BytesIO(xlsx_data))
 
         for _, row in df.iterrows():
+            id_value = row.get("id")
+
             transaction_data = DataModel(
-                id=str(row["id"]),
+                id=str(id_value) if id_value is not None else None,
                 description=row["description"],
                 transactionDate=datetime(
                     year=row["transactionDate"].year,
