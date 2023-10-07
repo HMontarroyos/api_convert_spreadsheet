@@ -9,9 +9,6 @@ async def process_xlsx(file: UploadFile = File(...)):
     try:
         xlsx_data = await file.read()
 
-        if not file.filename.endswith('.xlsx'):
-            raise ValueError(f"O arquivo deve ser do tipo xlsx.")
-
         data = await DataService.compare_data(xlsx_data)
 
         for item in data:
