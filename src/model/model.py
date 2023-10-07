@@ -1,14 +1,14 @@
 from pydantic import BaseModel
-from typing import List, Union
+from typing import List, Union, Optional
 from datetime import date
 
 class DataModel(BaseModel):
-    id: str
+    id: Optional[str]
     description: str
     transactionDate: date
-    transactionType: Union[str, str]
+    transactionType: str
     value: float
-    recipient: str | None
+    recipient: str
 
 class JSONResponseModel(BaseModel):
     data: List[DataModel]
