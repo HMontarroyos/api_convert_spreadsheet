@@ -1,5 +1,5 @@
 from fastapi import APIRouter, File, UploadFile, HTTPException
-from model.model import JSONResponseModel
+from model.model import DataModel, JSONResponseModel
 from services.service import DataService
 
 router = APIRouter()
@@ -12,13 +12,18 @@ async def process_xlsx(file: UploadFile = File(...)):
         if not file.filename.endswith('.xlsx'):
             raise ValueError(f"O arquivo deve ser do tipo xlsx.")
 
-        json_data = await DataService.compare_data(xlsx_data) 
+        data = await DataService.compare_data(xlsx_data)
 
-        return JSONResponseModel(data=json_data)
+        for item in data:
+            if 'id' not in item:
+                item['id'] = None
+
+        json_data = JSONResponseModel(data=[DataModel(**item) for item in data])
+
+        return json_data
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 
 @router.get("/teste/")
 async def teste():
