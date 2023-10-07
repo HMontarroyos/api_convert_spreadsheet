@@ -1,8 +1,8 @@
-import openpyxl
+from datetime import datetime
+import pandas as pd
 from io import BytesIO
 from model.model import DataModel
 from typing import List
-from datetime import date
 
 def convert_data_to_json(data: List[DataModel]) -> List[dict]:
     return [item.model_dump() for item in data]
@@ -20,22 +20,22 @@ class DataService:
 
         json_transactions = []  
 
-        workbook = openpyxl.load_workbook(BytesIO(xlsx_data), read_only=True)
-        sheet = workbook.active
+        df = pd.read_excel(BytesIO(xlsx_data))
 
-        header = [cell.value for cell in sheet[1]]
-
-        column_indices = {field: header.index(field) if field in header else None for field in required_fields}
-
-        for row in sheet.iter_rows(values_only=True):
+        for _, row in df.iterrows():
             transaction_data = DataModel(
-                id=str(row[column_indices["id"]]) if "id" in column_indices and row[column_indices["id"]] else None,
-                description=str(row[column_indices["description"]]) if "description" in column_indices and row[column_indices["description"]] else None,
-                transactionDate=row[column_indices["transactionDate"]],
-                transactionType=str(row[column_indices["transactionType"]]) if "transactionType" in column_indices and row[column_indices["transactionType"]] else None,
-                value=row[column_indices["value"]],
-                recipient=str(row[column_indices["recipient"]]) if "recipient" in column_indices and row[column_indices["recipient"]] else None
+                id=str(row["id"]),
+                description=row["description"],
+                transactionDate=datetime(
+                    year=row["transactionDate"].year,
+                    month=row["transactionDate"].month,
+                    day=row["transactionDate"].day
+                ).date(),
+                transactionType=str(row["transactionType"]),
+                value=float(row["value"]),
+                recipient=str(row["recipient"])
             )
+
         
             if transaction_data.id is not None and not isinstance(transaction_data.id, str):
                 raise ValueError(f"O campo 'id' deve ser uma string ou None, não {type(transaction_data.id).__name__}")
