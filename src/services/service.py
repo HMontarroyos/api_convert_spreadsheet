@@ -35,7 +35,7 @@ class DataService:
                 ).date(),
                 transactionType=str(row["transactionType"]),
                 value=float(row["value"]),
-                recipient=str(row["recipient"])
+                recipient=(row["recipient"])
             )
 
         
@@ -54,16 +54,19 @@ class DataService:
 
             if transaction_data.transactionType not in {'Débito', 'Crédito'}:
                 raise ValueError(f"Invalid transaction type: {transaction_data.transactionType} Enter a valid transactionType such as Débito or Crédito")
-
+    
             if not isinstance(transaction_data.value, (int, float)):
                 raise ValueError(f"Invalid value: {transaction_data.value}")
 
+            if not transaction_data.recipient or not isinstance(transaction_data.recipient, str):
+                    raise ValueError(f"Invalid recipient: {transaction_data.recipient}. Recipient must be a non-empty string.")
+            
             transaction = {
                 "description": transaction_data.description,
                 "transactionDate": transaction_data.transactionDate,
                 "transactionType": transaction_data.transactionType,
                 "value": transaction_data.value,
-                "recipient": transaction_data.recipient or None,
+                "recipient": transaction_data.recipient,
             }
 
             json_transactions.append(transaction)
