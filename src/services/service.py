@@ -38,7 +38,6 @@ class DataService:
                 recipient=(row["recipient"])
             )
 
-        
             if transaction_data.id is not None and not isinstance(transaction_data.id, str):
                 raise ValueError(f"The 'id' field must be a string, not {type(transaction_data.id).__name__}")
 
@@ -62,6 +61,7 @@ class DataService:
                     raise ValueError(f"Invalid recipient: {transaction_data.recipient}. Recipient must be a non-empty string.")
             
             transaction = {
+                "id": transaction_data.id,
                 "description": transaction_data.description,
                 "transactionDate": transaction_data.transactionDate,
                 "transactionType": transaction_data.transactionType,

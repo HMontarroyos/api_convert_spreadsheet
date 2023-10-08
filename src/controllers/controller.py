@@ -12,7 +12,7 @@ async def process_xlsx(file: UploadFile = File(...)):
         data = await DataService.compare_data(xlsx_data)
 
         for item in data:
-            if 'id' not in item:
+            if 'id' not in item or not item['id']:
                 item['id'] = None
 
         json_data = JSONResponseModel(data=[DataModel(**item) for item in data])
