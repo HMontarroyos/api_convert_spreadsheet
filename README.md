@@ -93,8 +93,8 @@ http://localhost:4005/spreadsheet/
 
 <br/>
 Essa  rota é onde você vai enviar seu arquivo <i>.xlsx</i> e ele vai fazer essa conversão para o JSON e e lhe devolver esse JSON como resposta.
-
 </br>
+Para testar eu deixei um arquivo .xlsx na pasta uploads dentro de src, onde você caso esteja usando o Postman por exemplo pode ir na opção Body e no key escrever file por exemplo e escolher do tipo file e no Value você seleciona o arquivo TESTE_PLANILHA.xlsx da pasta uploads e envia.
 </br>
 
 #### Testes 
