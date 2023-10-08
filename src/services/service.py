@@ -40,23 +40,23 @@ class DataService:
 
         
             if transaction_data.id is not None and not isinstance(transaction_data.id, str):
-                raise ValueError(f"O campo 'id' deve ser uma string ou None, não {type(transaction_data.id).__name__}")
+                raise ValueError(f"The 'id' field must be a string, not {type(transaction_data.id).__name__}")
 
             invalid_keys = [field for field in required_fields if not hasattr(transaction_data, field)]
 
             if invalid_keys:
-                raise ValueError(f"Chaves inválidas encontradas: {', '.join(invalid_keys)}")
+                raise ValueError(f"Invalid keys found: {', '.join(invalid_keys)}")
 
             missing_fields = [field for field in required_fields if not hasattr(transaction_data, field)]
 
             if missing_fields:
-                raise ValueError(f"Campos obrigatórios ausentes: {', '.join(missing_fields)}")
+                raise ValueError(f"Missing required fields: {', '.join(missing_fields)}")
 
             if transaction_data.transactionType not in {'Débito', 'Crédito'}:
-                raise ValueError(f"Tipo de transação inválido: {transaction_data.transactionType}")
+                raise ValueError(f"Invalid transaction type: {transaction_data.transactionType} Enter a valid transactionType such as Débito or Crédito")
 
             if not isinstance(transaction_data.value, (int, float)):
-                raise ValueError(f"Valor inválido: {transaction_data.value}")
+                raise ValueError(f"Invalid value: {transaction_data.value}")
 
             transaction = {
                 "description": transaction_data.description,

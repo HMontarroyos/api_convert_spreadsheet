@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Union, Optional
+from typing import List, Optional
 from datetime import date
 
 class DataModel(BaseModel):

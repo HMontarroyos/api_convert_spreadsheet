@@ -22,6 +22,3 @@ async def process_xlsx(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/teste/")
-async def teste():
-    return {"message": "Olá, Mundo!"}
