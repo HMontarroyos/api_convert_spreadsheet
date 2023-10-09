@@ -1,6 +1,8 @@
-from fastapi import FastAPI
 from routes import app
+import os
+
+HOST = os.getenv('HOST', "::")
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="::", port=4005)
+    uvicorn.run(app, host= HOST, port=4005)
