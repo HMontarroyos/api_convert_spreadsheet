@@ -113,7 +113,7 @@ que o PyTest vai executar os tests que foram criados para ele.
 Parar criar o container da aplicação esubir posteriomente em um Docker hub por exemplo ou usar localmente é so rodar o seguinte comando 
 
 ```docker
-docker build -t
+docker build -t NOME_DA_IMAGEM
 
 ```
 
