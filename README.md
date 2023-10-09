@@ -108,6 +108,16 @@ que o PyTest vai executar os tests que foram criados para ele.
 
 <br>
 
+### Dockerizar 
+
+Parar criar o container da aplicação esubir posteriomente em um Docker hub por exemplo ou usar localmente é so rodar o seguinte comando 
+
+```docker
+docker build -t
+
+```
+
+
 ### 🚀 Let's code! 🚀
 
 <!-- MARKDOWN LINKS & IMAGES -->
